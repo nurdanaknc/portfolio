@@ -24,14 +24,14 @@ export default function PostList(props: PostListProps) {
         <div className="flex flex-col gap-4 w-full">
         {props.posts.map((post, index) => (
             <div key={index} className="flex flex-col">
-                <Link href={`/posts/${post.slug}`} className=" text-base font-medium hover:bg-[#FFF3C8] hover:underline hover:cursor-pointer w-fit">{post.title}</Link>
+                <Link href={`/posts/${post.slug}`} className=" text-base font-medium hover:bg-[#FFF3C8] dark:hover:bg-[#4F4F4F] hover:underline hover:cursor-pointer w-fit">{post.title}</Link>
                 <p className="flex text-base font-light">
                   {truncateContent(post?.smallText,119)}
                 </p>
                 <div className="w-full flex justify-end">
                     <span className=" font-light italic text-xs">{post.publishDate}</span>
                 </div>
-                <div className="border-b py-3"/>
+                <div className="border-b py-3 dark:border-[#ffffff21]"/>
             </div>
         ))}    
       </div>

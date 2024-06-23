@@ -45,6 +45,8 @@ const config: Config = {
             // Add other custom styles here
           },
         },
+        
+        
       }),},
   },
   plugins: [

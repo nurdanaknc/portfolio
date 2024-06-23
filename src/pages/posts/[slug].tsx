@@ -10,6 +10,7 @@ import Mdx from '@/components/mdx';
 import Navbar from '@/components/navbar';
 import { LuChevronLeft } from 'react-icons/lu';
 import { useRouter } from 'next/router';
+import 'prismjs/themes/prism-okaidia.css';
 
 
 
@@ -23,7 +24,7 @@ interface PostProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const files = fs.readdirSync(path.join(process.cwd(), 'src', 'blogContents'));
+  const files = fs.readdirSync(path.join(process.cwd(), 'src', 'contents', 'blogContents'));
   const paths = files.map((filename) => ({
     params: {
       slug: filename.replace('.mdx', ''),
@@ -39,7 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params!;
   const markdownWithMeta = fs.readFileSync(
-    path.join(process.cwd(), 'src', 'blogContents', slug + '.mdx'),
+    path.join(process.cwd(), 'src', 'contents', 'blogContents', slug + '.mdx'),
     'utf-8'
   );
 
@@ -60,7 +61,7 @@ const PostPage = ({ source, frontMatter }: PostProps) => {
     <div className="flex flex-col">
       <div className="flex flex-col gap-2">
         <LuChevronLeft className="w-4 h-4 cursor-pointer" onClick={ router.back }/>
-        <h1 className="text-base font-medium hover:bg-[#FFF3C8] hover:underline hover:cursor-pointer w-fit">{frontMatter.title}</h1>
+        <h1 className="text-base font-medium hover:bg-[#FFF3C8] dark:hover:bg-[#4F4F4F] hover:underline hover:cursor-pointer w-fit">{frontMatter.title}</h1>
         <span className="font-light italic text-xs">{frontMatter.publishDate}</span>
         <div >
           <Mdx source={source} /> {/* Custom Mdx */}

@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import PostList from "@/components/postList";
 import React from "react";
 import { GetStaticProps } from 'next';
+import 'prismjs/themes/prism-okaidia.css';
 
 interface PostsPageProps {
     posts: {
@@ -15,10 +16,10 @@ interface PostsPageProps {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-    const files = fs.readdirSync(path.join(process.cwd(), 'src', 'blogContents'));
+    const files = fs.readdirSync(path.join(process.cwd(), 'src', 'contents', 'blogContents'));
     const posts = await files.map((filename) => {
         const markdownWithMeta = fs.readFileSync(
-            path.join(process.cwd(), 'src', 'blogContents', filename),
+            path.join(process.cwd(), 'src', 'contents', 'blogContents', filename),
             'utf-8'
         );
         const { data: frontMatter } = matter(markdownWithMeta);
