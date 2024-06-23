@@ -31,7 +31,7 @@ export default function AboutTimeLine() {
             Intranet
           </p>
           <p>
-            - I’ve worked as a full-stack developer on a web project developed with my internship group for the company I was interning at. It's a dashboard and announcement application where the human resources department can publish announcements to company employees and celebrate birthdays. The frontend of the project was written in React.js, while the backend was developed using Node.js and MongoDB.
+            - I&apos;ve worked as a full-stack developer on a web project developed with my internship group for the company I was interning at. It&apos;s a dashboard and announcement application where the human resources department can publish announcements to company employees and celebrate birthdays. The frontend of the project was written in React.js, while the backend was developed using Node.js and MongoDB.
           </p>
           <p className="mt-1 underline">
             WhatsApp Clone
