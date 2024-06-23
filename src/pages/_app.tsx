@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Roboto_Mono } from 'next/font/google'
+import 'prismjs/themes/prism-okaidia.css';
 
 const robotoMono = Roboto_Mono({
   weight: ['100','200','300','400', '500','600' ,'700'], // İstediğin font weight'leri buraya ekleyebilirsin

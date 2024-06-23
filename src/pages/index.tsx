@@ -1,60 +1,47 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 import InfoCard from "@/components/infoCard";
+import PostList from "@/components/postList";
+import { GetStaticProps } from "next";
 import React from "react";
 import { LuSunDim, LuDot } from "react-icons/lu";
 
+export const getStaticProps: GetStaticProps = async () => {
+  const files = fs.readdirSync(path.join(process.cwd(), 'src', 'blogContents'));
+  const posts = await files.map((filename) => {
+      const markdownWithMeta = fs.readFileSync(
+          path.join(process.cwd(), 'src', 'blogContents', filename),
+          'utf-8'
+      );
+      const { data: frontMatter } = matter(markdownWithMeta);
+      console.log(frontMatter);
+      return {
+          title: frontMatter.title || 'Untitled',
+          smallText: frontMatter.smallText || 'No description available.',
+          publishDate: frontMatter.publishDate || 'Unknown date',
+          slug: filename.replace('.mdx', ''),
+        };
+  });
 
-export default function Home() {
+  return {
+      props: {
+          posts,
+      },
+  };
+}
+
+export default function Home(props: {posts: {title: string, smallText: string, publishDate: string, slug: string}[]}) {
   return (
     <div className=" flex flex-col gap-10">
 
    
       <div className="flex flex-col gap-5 items-center">
-      <div className=" bg-[#FFF3C8] px-[32px] py-[53px]">
+      <div className=" dark:bg-slate-800 bg-[#FFF3C8] px-[32px] py-[53px]">
         🍄 I am a Frontend Developer and Engineer. This space is created for me and for those who want to know me better. I’m currently working with TypeScript/JavaScript-based projects. I like Next.js and Redux {":)"}
       </div>
       <LuDot className="w-6 h-6"/>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col">
-          <span className=" text-base font-medium hover:bg-[#FFF3C8] hover:underline hover:cursor-pointer w-fit">Post One</span>
-          <p className="flex text-base font-light">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard..
-          </p>
-          <div className="w-full flex justify-end">
-              <span className=" font-light italic text-xs">12.04.2024</span>
-          </div>
-          <div className="border-b py-3"/>
-        </div>
-        <div className="flex flex-col">
-          <span className=" text-base font-medium hover:bg-[#FFF3C8] hover:underline hover:cursor-pointer w-fit">Post One</span>
-          <p className="flex text-base font-light">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard..
-          </p>
-          <div className="w-full flex justify-end">
-              <span className=" font-light italic text-xs">12.04.2024</span>
-          </div>
-          <div className="border-b py-3"/>
-        </div>
-        <div className="flex flex-col">
-          <span className=" text-base font-medium hover:bg-[#FFF3C8] hover:underline hover:cursor-pointer w-fit">Post One</span>
-          <p className="flex text-base font-light">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard..
-          </p>
-          <div className="w-full flex justify-end">
-              <span className=" font-light italic text-xs">12.04.2024</span>
-          </div>
-          <div className="border-b py-3"/>
-        </div>
-        <div className="flex flex-col">
-          <span className=" text-base font-medium hover:bg-[#FFF3C8] hover:underline hover:cursor-pointer w-fit">Post One</span>
-          <p className="flex text-base font-light">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard..
-          </p>
-          <div className="w-full flex justify-end">
-              <span className=" font-light italic text-xs">12.04.2024</span>
-          </div>
-          <div className="border-b py-3"/>
-        </div>
-      </div>
+       <PostList posts={props.posts}/>
       <LuDot className="w-6 h-6"/>
       <div className="grid grid-cols-2 w-full">
         <div className="col-span-2">
